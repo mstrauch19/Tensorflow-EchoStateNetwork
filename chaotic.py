@@ -36,5 +36,5 @@ def run(data_str, tr_size=12000, washout_size=50, units=40, connectivity=0.2, sc
   print("Test MSE: " + str(ts_mse))
 
 if __name__ == "__main__":
-  data_str = open("EXPTCHAO.DAT", "r").read()
+  data_str = open("HENON.DAT", "r").read()
   run(data_str)

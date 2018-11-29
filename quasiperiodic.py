@@ -30,8 +30,7 @@ def run(data_str, tr_size=12000, washout_size=50, units=40, connectivity=0.2, sc
     print("Testing performance...")
     ts_out = np.mat((np.transpose(ts_state * wout).tolist())[0][:-1])
     ts_y = np.mat(data[washout_size+tr_size+1:])
-    print ts_out
-    print ts_y
+    print ts_y - ts_out
 
     ts_mse = np.mean(np.square(ts_y - ts_out))
 
