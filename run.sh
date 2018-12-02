@@ -2,5 +2,5 @@
 
 for i in `seq 1 30`;
 do 
-	python chaotic.py
+	python MackeyGlass.py
 done

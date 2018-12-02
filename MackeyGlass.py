@@ -5,7 +5,7 @@ import tensorflow as tf
 from esn_cell import ESNCell
 
 
-def MackeyGlass(data_str, file, average, tr_size=8000, washout_size=50, units=40, connectivity=0.2, scale=0.7, elements=10000):
+def MackeyGlass(data_str, file, average, tr_size=7949, washout_size=50, units=40, connectivity=0.2, scale=0.7, elements=10000):
   data = map(float, data_str.splitlines()[:elements])
   print data
   data_t = tf.reshape(tf.constant(data), [1, elements, 1])
@@ -51,7 +51,7 @@ def MackeyGlass(data_str, file, average, tr_size=8000, washout_size=50, units=40
 
 def run_x(data_str, x,average):
   file = open("results"+str(x)+"mackeyglass.txt", "a")
-  MackeyGlass(data_str, file, average, tr_size=9000, washout_size=50, units=40, connectivity=0.2, scale=0.7, elements=9051 + x)
+  MackeyGlass(data_str, file, average, tr_size=8949, washout_size=50, units=40, connectivity=0.2, scale=0.7, elements=9000 + x)
 
 if __name__ == "__main__":
   data_str = open("MackeyGlass_t17.txt", "r").read()
