@@ -5,7 +5,7 @@ import tensorflow as tf
 from esn_cell import ESNCell
 
 
-def MackeyGlass(data_str, tr_size=8000, washout_size=50, units=40, connectivity=0.2, scale=0.7, elements=10000):
+def MackeyGlass(data_str, file, average, tr_size=8000, washout_size=50, units=40, connectivity=0.2, scale=0.7, elements=10000):
   data = map(float, data_str.splitlines()[:elements])
   print data
   data_t = tf.reshape(tf.constant(data), [1, elements, 1])
@@ -32,9 +32,27 @@ def MackeyGlass(data_str, tr_size=8000, washout_size=50, units=40, connectivity=
     ts_y = np.mat(data[washout_size+tr_size+1:])
 
     ts_mse = np.mean(np.square(ts_y - ts_out))
+  if (average):
+    print("Test MSE: " + str(ts_mse))
+    file.write(str(ts_mse)+"\n")
+  else:
+    get_last = str(ts_out).split(" ")
+    get_last_true = str(ts_y).split(" ")
+    print get_last_true
+    print get_last
+    use_found = 0
+    if "]]" in str(get_last[-1]):
+      use_found = get_last[-1][0:-2]
+    else:
+      use_found = get_last[-2]
+    print use_found
+    print get_last_true[-1][0:-2]
+    file.write(str(use_found) + ":" + str(get_last_true[-1][0:-2]) + "\n")
 
-  print("Test MSE: " + str(ts_mse))
+def run_x(data_str, x,average):
+  file = open("results"+str(x)+"mackeyglass.txt", "a")
+  MackeyGlass(data_str, file, average, tr_size=9000, washout_size=50, units=40, connectivity=0.2, scale=0.7, elements=9051 + x)
 
 if __name__ == "__main__":
   data_str = open("MackeyGlass_t17.txt", "r").read()
-  MackeyGlass(data_str)
+  run_x(data_str, 100, True)

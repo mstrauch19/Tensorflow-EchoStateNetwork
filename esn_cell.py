@@ -97,7 +97,7 @@ class ESNCell(rnn_cell_impl.RNNCell):
     input_size = inputs.get_shape().as_list()[1]
     dtype = inputs.dtype
 
-    with vs.variable_scope(scope or type(self).__name__):  # "ESNCell"
+    with vs.variable_scope(scope or type(self).__name__, reuse=False):  # "ESNCell"
 
       win = vs.get_variable("InputMatrix", [input_size, self._num_units], dtype=dtype,
                             trainable=False, initializer=self._win_initializer)
