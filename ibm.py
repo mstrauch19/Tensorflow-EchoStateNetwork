@@ -10,8 +10,8 @@ def run(data_str, file, average, tr_size=7949, washout_size=50, units=40, connec
   data = map(float, data_str.splitlines()[:elements])
   data = preprocessing.scale(data)
   data = map(float, data)
-  print data
   data_t = tf.reshape(tf.constant(data), [1, elements, 1])
+  #time start
   esn = ESNCell(units, connectivity, scale)
 
   print("Building graph...")
@@ -52,6 +52,8 @@ def run(data_str, file, average, tr_size=7949, washout_size=50, units=40, connec
     print get_last_true[-1][0:-2]
     #sometimes get_last_true needs to be [-1][0:-2] other times [-2]
     file.write(str(use_found) + ":" + str(get_last_true[-1][0:-2]) + "\n")
+  #time finish
+
 
 def run_x(data_str, x,average):
   file = open("results"+str(x)+"ibm2.txt", "a")

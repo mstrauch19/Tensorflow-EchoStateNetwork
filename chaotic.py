@@ -7,8 +7,8 @@ from esn_cell import ESNCell
 
 def run(data_str, file, average, tr_size=11949, washout_size=50, units=40, connectivity=0.2, scale=0.7, elements=12030):
   data = map(float, data_str.splitlines()[:elements])
-  print data
   data_t = tf.reshape(tf.constant(data), [1, elements, 1])
+  #time start
   esn = ESNCell(units, connectivity, scale)
 
   print("Building graph...")
@@ -53,6 +53,7 @@ def run(data_str, file, average, tr_size=11949, washout_size=50, units=40, conne
     print use_found
     print get_last_true[-1][0:-2]
     file.write(str(use_found) + ":" + str(get_last_true[-1][0:-2]) + "\n")
+  #time finish
 
 def run_x(data_str, x, average):
   file = open("results"+str(x)+"chaotic.txt", "a")
